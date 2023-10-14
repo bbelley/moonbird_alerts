@@ -66,7 +66,7 @@ def insert_data(conn, tokens_data, price_history_data):
 
 def update_listing_status(conn, listed_token_ids):
     c = conn.cursor()
-    # After processing all the current tokens, you might want to update the isListed field for any tokens not in the current data set:
+    # After processing all the current tokens, update the isListed field for any tokens not in the current data set:
     placeholders = ','.join('?' * len(listed_token_ids))
     c.execute(
         f'UPDATE tokens SET isListed = 0 WHERE tokenId NOT IN ({placeholders})', listed_token_ids)

@@ -33,8 +33,7 @@ This will fetch the data from the API, store it in the tokens.db SQLite database
   - `__init__.py`
   - `fetcher.py` - Module for fetching data from the API.
   - `db_manager.py` - Module for managing the database operations.
-- `scripts/`
-  - `fetchPrices.py` - Main script to execute the fetching and storing process.
+- `fetchPrices.py` - Main script to execute the fetching and storing process.
 - `README.md`
 - `tokens.db` - SQLite database to store the token data.
 - `requirements.txt` - File listing all the Python dependencies.
