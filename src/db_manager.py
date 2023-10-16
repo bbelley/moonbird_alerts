@@ -13,7 +13,8 @@ def create_tables(conn):
             isSuspicious BOOLEAN,
             rarityRank INTEGER,
             latestPrice FLOAT,
-            isListed BOOLEAN
+            isListed BOOLEAN,
+            lastSeen TEXT
         )
     ''')
 
@@ -37,24 +38,25 @@ def insert_data(conn, tokens_data, price_history_data):
         INSERT OR IGNORE INTO tokens (
             tokenId, traits, listedAt, marketplace, 
             numberOwnedByOwner, isSuspicious, rarityRank, 
-            latestPrice, isListed
+            latestPrice, isListed, lastSeen
         )
-        VALUES (?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?)
     ''', tokens_data)
 
     # Update existing token data
     c.executemany('''
-        UPDATE tokens SET
-            traits = ?,
-            listedAt = ?,
-            marketplace = ?,
-            numberOwnedByOwner = ?,
-            isSuspicious = ?,
-            rarityRank = ?,
-            latestPrice = ?,
-            isListed = ?
+    UPDATE tokens SET
+        traits = ?,
+        listedAt = ?,
+        marketplace = ?,
+        numberOwnedByOwner = ?,
+        isSuspicious = ?,
+        rarityRank = ?,
+        latestPrice = ?,
+        isListed = ?,
+        lastSeen = ?
         WHERE tokenId = ?
-    ''', [(traits, listed_at, marketplace, number_owned_by_owner, is_suspicious, rarity_rank, latest_price, is_listed, token_id) for token_id, traits, listed_at, marketplace, number_owned_by_owner, is_suspicious, rarity_rank, latest_price, is_listed in tokens_data])
+    ''', [(traits, listed_at, marketplace, number_owned_by_owner, is_suspicious, rarity_rank, latest_price, is_listed, last_seen, token_id) for token_id, traits, listed_at, marketplace, number_owned_by_owner, is_suspicious, rarity_rank, latest_price, is_listed, last_seen in tokens_data])
 
     # Insert price history data
     c.executemany('''
